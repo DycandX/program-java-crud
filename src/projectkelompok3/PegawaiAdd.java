@@ -1,19 +1,19 @@
-package projectkelompok1;
+package projectkelompok3;
 
 import java.sql.*;
 import javax.swing.JOptionPane;
 
-public class CustomerAdd extends javax.swing.JFrame {
+public class PegawaiAdd extends javax.swing.JFrame {
 
     /**
      * Creates new form PmbAdd
      */
-    public CustomerAdd() {
+    public PegawaiAdd() {
         initComponents();
         String id = Global.id;
-        Customer customer = new Customer(id, "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "");
+        Pegawai customer = new Pegawai(id, "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "");
         try {
-            Customer.viewData(customer, id);
+            Pegawai.viewData(customer, id);
         } catch (Exception e) {
             System.out.println(e.toString());
         }
@@ -352,12 +352,12 @@ public class CustomerAdd extends javax.swing.JFrame {
         String userid = txtUserId.getText();
         String pwd = txtPwd.getText();
         
-        Customer customer = new Customer(id, kode, nama, jenisid, cp, alamat, telp, fax, kota, email, jt, disc, AWAL, piutang, bayar, akhir, tgl, userid, pwd);
+        Pegawai customer = new Pegawai(id, kode, nama, jenisid, cp, alamat, telp, fax, kota, email, jt, disc, AWAL, piutang, bayar, akhir, tgl, userid, pwd);
 
         try {
-            Customer.addData(customer);
+            Pegawai.addData(customer);
             JOptionPane.showMessageDialog(null, "Data berhasil disimpan");
-            new CustomerAdd().setVisible(true);
+            new PegawaiAdd().setVisible(true);
             this.dispose();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.toString());
@@ -390,21 +390,23 @@ public class CustomerAdd extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CustomerAdd.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PegawaiAdd.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CustomerAdd.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PegawaiAdd.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CustomerAdd.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PegawaiAdd.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CustomerAdd.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PegawaiAdd.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CustomerAdd().setVisible(true);
+                new PegawaiAdd().setVisible(true);
             }
         });
     }

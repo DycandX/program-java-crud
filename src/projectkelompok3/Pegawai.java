@@ -1,4 +1,4 @@
-package projectkelompok1;
+package projectkelompok3;
 import java.sql.ResultSet;
 import java.sql.* ;
 import javax.swing.table.DefaultTableModel;
@@ -7,50 +7,40 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author warse
  */
-public class Customer extends Data {
+public class Pegawai extends Data {
     private String id;
-    private String kode;
+    private String nip;
     private String nama;
-    private String jenisid;
-    private String cp;
+    private String tempat;
+    private String lahir;
+    private String sex;
+    private String agama;
+    private String hp;
+    private String jabatan;
     private String alamat;
-    private String telp;
-    private String fax;
     private String kota;
+    private String aktif;
+    private String status;
     private String email;
-    private String jt;
-    private String disc;
-    private String AWAL;
-    private String Piutang;
-    private String Bayar;
-    private String Akhir;
-    private String tgl;
-    private String userid;
-    private String pwd;
             
-    public Customer(String id, String kode, String nama, String jenisid, String cp,
-            String alamat, String telp, String fax, String kota, String email, String jt, String disc,
-            String AWAL, String Piutang, String Bayar, String Akhir, String tgl, String userid, String pwd) {
+    public Pegawai(String id, String nip, String nama, String tempat, String lahir,
+            String sex, String agama, String hp, String jabatan, String alamat, String kota, String aktif,
+            String status, String email) {
         super(nama, alamat);
         this.id = id;
-        this.kode = kode;
+        this.nip = nip;
         this.nama = nama;
-        this.jenisid = jenisid;
-        this.cp = cp;
+        this.tempat = tempat;
+        this.lahir = lahir;
+        this.sex = sex;
+        this.agama = agama;
+        this.hp	 = hp;
+        this.jabatan = jabatan;
         this.alamat = alamat;
-        this.telp = telp;
-        this.fax = fax;
         this.kota = kota;
+        this.aktif = aktif;
+        this.status = status;
         this.email = email;
-        this.jt = jt;
-        this.disc = disc;
-        this.AWAL = AWAL;
-        this.Piutang = Piutang;
-        this.Bayar = Bayar;
-        this.Akhir = Akhir;
-        this.tgl = tgl;
-        this.userid = userid;
-        this.pwd = pwd;
     }
 
     public String getId() {
@@ -228,7 +218,7 @@ public class Customer extends Data {
         System.out.println("Password: " + getPwd());
     }
     
-    public static void viewData(Customer customer, String id) throws SQLException {
+    public static void viewData(Pegawai customer, String id) throws SQLException {
         Connection db = ConnectionDB.getConnection();
         String sql = "SELECT * FROM r_customer WHERE id = '" + id + "' " ;
         try (PreparedStatement q = db.prepareStatement(sql)) {
@@ -289,7 +279,7 @@ public class Customer extends Data {
         } // end try
     } // end bacaData
  
-    public static void addData(Customer customer) throws SQLException {
+    public static void addData(Pegawai customer) throws SQLException {
         Connection db = ConnectionDB.getConnection();
         String sql = "INSERT INTO r_customer (id, kode, nama, jenisid, cp, alamat, telp, fax, kota, email, jt, disc, AWAL, Piutang, Bayar, Akhir, tgl, userid, pwd)"
                    + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -318,7 +308,7 @@ public class Customer extends Data {
         }
      }
  
-    public void Edit(Customer customer) throws SQLException {
+    public void Edit(Pegawai customer) throws SQLException {
         Connection db = ConnectionDB.getConnection();
         String sql = "UPDATE r_customer SET kode = ?, nama = ?, jenisid = ?, cp = ?, alamat = ?, telp = ?, fax = ?, kota = ?, email = ?, jt = ?, disc = ?, AWAL = ?, Piutang = ?, Bayar = ?, Akhir = ?, tgl = ?, userid = ?, pwd = ? WHERE id = ?";
 

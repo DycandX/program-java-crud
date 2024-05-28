@@ -1,4 +1,4 @@
-package projectkelompok1;
+package projectkelompok3;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
@@ -12,7 +12,7 @@ public class ConnectionDB {
     public static Connection getConnection(){
         try {
             DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
-            String url="jdbc:mysql://localhost:3306/pbo1"; // url database
+            String url="jdbc:mysql://localhost:3306/pbo-crud-kel3"; // url database
             String user="root"; // user database
             String pass=""; // password database
             koneksi=DriverManager.getConnection(url, user, pass); 
