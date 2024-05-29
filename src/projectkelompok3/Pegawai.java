@@ -180,9 +180,9 @@ public class Pegawai extends Data {
             ResultSet rs = q.executeQuery();
             while (rs.next()) {
                 pegawai.setId(rs.getString("id"));
-                pegawai.setNip(rs.getString("kode"));
+                pegawai.setNip(rs.getString("nip"));
                 pegawai.setNama(rs.getString("nama"));
-                pegawai.setTempat(rs.getString("jenisid"));
+                pegawai.setTempat(rs.getString("tempat"));
                 pegawai.setLahir(rs.getString("lahir"));
                 pegawai.setSex(rs.getString("sex"));
                 pegawai.setAgama(rs.getString("agama"));
@@ -250,7 +250,7 @@ public class Pegawai extends Data {
  
     public void Edit(Pegawai pegawai) throws SQLException {
         Connection db = ConnectionDB.getConnection();
-        String sql = "UPDATE r_customer SET kode = ?, nama = ?, jenisid = ?, cp = ?, alamat = ?, telp = ?, fax = ?, kota = ?, email = ?, jt = ?, disc = ?, AWAL = ?, Piutang = ?, Bayar = ?, Akhir = ?, tgl = ?, userid = ?, pwd = ? WHERE id = ?";
+        String sql = "UPDATE r_pegawai SET kode = ?, nama = ?, jenisid = ?, cp = ?, alamat = ?, telp = ?, fax = ?, kota = ?, email = ?, jt = ?, disc = ?, AWAL = ?, Piutang = ?, Bayar = ?, Akhir = ?, tgl = ?, userid = ?, pwd = ? WHERE id = ?";
 
         try (PreparedStatement q = db.prepareStatement(sql)) {
             q.setString(1, pegawai.getId());
