@@ -15,7 +15,7 @@ public class PegawaiAdd extends javax.swing.JFrame {
         try {
             Pegawai.viewData(pegawai, id);
         } catch (Exception e) {
-            System.out.println(e.toString());
+            e.printStackTrace();
         }
         txtId.setText(pegawai.getId());
         txtNip.setText(pegawai.getNip());
@@ -26,11 +26,11 @@ public class PegawaiAdd extends javax.swing.JFrame {
         txtAgama.setText(pegawai.getAgama());
         txtHp.setText(pegawai.getHp());
         txtJabatan.setText(pegawai.getJabatan());
-        txtSex.setText(pegawai.getAlamat());
-        txtJabatan.setText(pegawai.getKota());
+        txtAlamat.setText(pegawai.getAlamat());
+        txtKota.setText(pegawai.getKota());
         txtAktif.setText(pegawai.getAktif());
         txtStatus.setText(pegawai.getStatus());
-        txtAlamat.setText(pegawai.getEmail());
+        txtEmail.setText(pegawai.getEmail());
     }
 
     /**
