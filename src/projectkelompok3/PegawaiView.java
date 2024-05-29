@@ -15,24 +15,19 @@ public class PegawaiView extends javax.swing.JFrame {
     public PegawaiView() {
         initComponents();
         tb.addColumn("ID");
-        tb.addColumn("Kode");
+        tb.addColumn("NIP");
         tb.addColumn("Nama");
-        tb.addColumn("Jenis ID");
-        tb.addColumn("CP");
+        tb.addColumn("Tempat");
+        tb.addColumn("Lahir");
         tb.addColumn("Alamat");
-        tb.addColumn("Telepon");
-        tb.addColumn("Fax");
+        tb.addColumn("Agama");
+        tb.addColumn("HP");
+        tb.addColumn("Jabatan");
+        tb.addColumn("Alamat");
         tb.addColumn("Kota");
+        tb.addColumn("Aktif");
+        tb.addColumn("Status");
         tb.addColumn("Email");
-        tb.addColumn("Jatuh Tempo");
-        tb.addColumn("Diskon");
-        tb.addColumn("Saldo Awal");
-        tb.addColumn("Piutang");
-        tb.addColumn("Pembayaran");
-        tb.addColumn("Saldo Akhir");
-        tb.addColumn("Tanggal");
-        tb.addColumn("UserID");
-        tb.addColumn("Password");
         tbData.setModel(tb); 
         
         try {
@@ -43,7 +38,7 @@ public class PegawaiView extends javax.swing.JFrame {
     }
     
     private void IsiTabel() throws SQLException {
-        Global.sql = "SELECT * FROM r_customer WHERE id <> ''";
+        Global.sql = "SELECT * FROM r_pegawai WHERE id <> ''";
         kosongTabel();
         String cari = inputSearch.getText();
         String sql = Global.sql;
@@ -67,7 +62,7 @@ public class PegawaiView extends javax.swing.JFrame {
         
         // Memberi nama pada setiap kolom tabel
         //tbData.setEnabled(false);
-        Customer.bacaData(tb,Global.sql + " LIMIT " + n);
+        Pegawai.bacaData(tb,Global.sql + " LIMIT " + n);
     }
     
     private void kosongTabel() {
@@ -79,18 +74,18 @@ public class PegawaiView extends javax.swing.JFrame {
     
     private void halamanOnPageChange(com.stripbandunk.jwidget.event.PaginationEvent evt) {
         int limit = (evt.getCurrentPage() - 1) * evt.getPageSize();
-        String sql = "SELECT * FROM r_customer LIMIT " + limit + ", " + evt.getPageSize();
+        String sql = "SELECT * FROM r_pegawai LIMIT " + limit + ", " + evt.getPageSize();
         System.out.println(sql);
         try {
             kosongTabel();
-            Customer.bacaData(tb, sql);
+            Pegawai.bacaData(tb, sql);
         } catch (Exception e) {
         }
     }
     
     private void deleteData(String id) {
         try (Connection conn = ConnectionDB.getConnection()) {
-            String sql = "DELETE FROM r_customer WHERE id = ?";
+            String sql = "DELETE FROM r_pegawai WHERE id = ?";
             try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
                 pstmt.setString(1, id);
                 int rowsDeleted = pstmt.executeUpdate();
@@ -123,7 +118,6 @@ public class PegawaiView extends javax.swing.JFrame {
         btnAdd = new javax.swing.JButton();
         btnEdit = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
-        Halaman = new com.stripbandunk.jwidget.JPagination();
         jLabel2 = new javax.swing.JLabel();
         inputSearch = new javax.swing.JTextField();
         btnLimitView = new javax.swing.JButton();
@@ -180,12 +174,6 @@ public class PegawaiView extends javax.swing.JFrame {
             }
         });
 
-        Halaman.addPaginationListener(new com.stripbandunk.jwidget.listener.PaginationListener() {
-            public void onPageChange(com.stripbandunk.jwidget.event.PaginationEvent evt) {
-                HalamanOnPageChange(evt);
-            }
-        });
-
         jLabel2.setText("Tampil");
 
         btnLimitView.setText("OK");
@@ -221,10 +209,7 @@ public class PegawaiView extends javax.swing.JFrame {
                                 .addComponent(inputPage, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(btnLimitView, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 765, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(294, 294, 294)
-                                .addComponent(Halaman, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 765, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap(42, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
@@ -243,20 +228,18 @@ public class PegawaiView extends javax.swing.JFrame {
                             .addComponent(btnEdit)
                             .addComponent(btnDelete))
                         .addGap(18, 18, 18)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Halaman, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(inputSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(btnSearch)))
-                .addContainerGap())
+                .addGap(30, 30, 30))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        new CustomerAdd().setVisible(true);
+        new PegawaiAdd().setVisible(true);
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnLimitViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimitViewActionPerformed
@@ -294,7 +277,7 @@ public class PegawaiView extends javax.swing.JFrame {
     }//GEN-LAST:event_tbDataMouseClicked
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
-        new CustomerEdit().setVisible(true);
+        new PegawaiEdit().setVisible(true);
     }//GEN-LAST:event_btnEditActionPerformed
 
     private void HalamanOnPageChange(com.stripbandunk.jwidget.event.PaginationEvent evt) {//GEN-FIRST:event_HalamanOnPageChange
@@ -344,7 +327,6 @@ public class PegawaiView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.stripbandunk.jwidget.JPagination Halaman;
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnEdit;
