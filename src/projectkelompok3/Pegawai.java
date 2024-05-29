@@ -51,12 +51,12 @@ public class Pegawai extends Data {
         this.id = id;
     }
 
-    public String getKode() {
-        return kode;
+    public String getNip() {
+        return nip;
     }
 
-    public void setKode(String kode) {
-        this.kode = kode;
+    public void setNip(String nip) {
+        this.nip = nip;
     }
     
     public String getNama() {
@@ -67,20 +67,52 @@ public class Pegawai extends Data {
         this.nama = nama;
     }
 
-    public String getJenisid() {
-        return jenisid;
+    public String getTempat() {
+        return tempat;
     }
 
-    public void setJenisid(String jenisid) {
-        this.jenisid = jenisid;
+    public void setTempat(String tempat) {
+        this.tempat = tempat;
     }
 
-    public String getCp() {
-        return cp;
+    public String getLahir() {
+        return lahir;
     }
 
-    public void setCp(String cp) {
-        this.cp = cp;
+    public void setLahir(String lahir) {
+        this.lahir = lahir;
+    }
+
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
+
+    public String getAgama() {
+        return agama;
+    }
+
+    public void setAgama(String agama) {
+        this.agama = agama;
+    }
+
+    public String getHp() {
+        return hp;
+    }
+
+    public void setHp(String hp) {
+        this.hp = hp;
+    }
+
+    public String getJabatan() {
+        return jabatan;
+    }
+
+    public void setJabatan(String jabatan) {
+        this.jabatan = jabatan;
     }
 
     public String getAlamat() {
@@ -91,28 +123,28 @@ public class Pegawai extends Data {
         this.alamat = alamat;
     }
 
-    public String getTelp() {
-        return telp;
-    }
-
-    public void setTelp(String telp) {
-        this.telp = telp;
-    }
-
-    public String getFax() {
-        return fax;
-    }
-
-    public void setFax(String fax) {
-        this.fax = fax;
-    }
-
     public String getKota() {
         return kota;
     }
 
     public void setKota(String kota) {
         this.kota = kota;
+    }
+
+    public String getAktif() {
+        return aktif;
+    }
+
+    public void setAktif(String aktif) {
+        this.aktif = aktif;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public String getEmail() {
@@ -122,127 +154,45 @@ public class Pegawai extends Data {
     public void setEmail(String email) {
         this.email = email;
     }
-
-    public String getJt() {
-        return jt;
-    }
-
-    public void setJt(String jt) {
-        this.jt = jt;
-    }
-
-    public String getDisc() {
-        return disc;
-    }
-
-    public void setDisc(String disc) {
-        this.disc = disc;
-    }
-
-    public String getAWAL() {
-        return AWAL;
-    }
-
-    public void setAWAL(String AWAL) {
-        this.AWAL = AWAL;
-    }
-
-    public String getPiutang() {
-        return Piutang;
-    }
-
-    public void setPiutang(String Piutang) {
-        this.Piutang = Piutang;
-    }
-
-    public String getBayar() {
-        return Bayar;
-    }
-
-    public void setBayar(String Bayar) {
-        this.Bayar = Bayar;
-    }
-
-    public String getAkhir() {
-        return Akhir;
-    }
-
-    public void setAkhir(String Akhir) {
-        this.Akhir = Akhir;
-    }
-
-    public String getTgl() {
-        return tgl;
-    }
-
-    public void setTgl(String tgl) {
-        this.tgl = tgl;
-    }
-
-    public String getUserid() {
-        return userid;
-    }
-
-    public void setUserid(String userid) {
-        this.userid = userid;
-    }
-
-    public String getPwd() {
-        return pwd;
-    }
-
-    public void setPwd(String pwd) {
-        this.pwd = pwd;
-    }
     
     @Override
     public void info() {
         System.out.println("ID: " + getId());
-        System.out.println("Kode: " + getKode());
+        System.out.println("Nip: " + getNip());
         System.out.println("Nama: " + getNama());
-        System.out.println("Jenis ID: " + getJenisid());
-        System.out.println("Contact Person: " + getCp());
+        System.out.println("Tempat: " + getTempat());
+        System.out.println("Lahir: " + getLahir());
+        System.out.println("Sex: " + getSex());
+        System.out.println("Agama: " + getAgama());
+        System.out.println("Hp: " + getHp());
+        System.out.println("Jabatan: " + getJabatan());
         System.out.println("Alamat: " + getAlamat());
-        System.out.println("Telp: " + getTelp());
-        System.out.println("Fax: " + getFax());
         System.out.println("Kota: " + getKota());
+        System.out.println("Aktif: " + getAktif());
+        System.out.println("Status: " + getStatus());
         System.out.println("Email: " + getEmail());
-        System.out.println("JT: " + getJt());
-        System.out.println("Disc: " + getDisc());
-        System.out.println("AWAL: " + getAWAL());
-        System.out.println("Piutang: " + getPiutang());
-        System.out.println("Bayar: " + getBayar());
-        System.out.println("Akhir: " + getAkhir());
-        System.out.println("Tanggal: " + getTgl());
-        System.out.println("User ID: " + getUserid());
-        System.out.println("Password: " + getPwd());
     }
     
-    public static void viewData(Pegawai customer, String id) throws SQLException {
+    public static void viewData(Pegawai pegawai, String id) throws SQLException {
         Connection db = ConnectionDB.getConnection();
-        String sql = "SELECT * FROM r_customer WHERE id = '" + id + "' " ;
+        String sql = "SELECT * FROM r_pegawai WHERE id = '" + id + "' " ;
         try (PreparedStatement q = db.prepareStatement(sql)) {
             ResultSet rs = q.executeQuery();
             while (rs.next()) {
-                customer.setId(rs.getString("id"));
-                customer.setKode(rs.getString("kode"));
-                customer.setNama(rs.getString("nama"));
-                customer.setJenisid(rs.getString("jenisid"));
-                customer.setCp(rs.getString("cp"));
-                customer.setAlamat(rs.getString("alamat"));
-                customer.setTelp(rs.getString("telp"));
-                customer.setFax(rs.getString("fax"));
-                customer.setKota(rs.getString("kota"));
-                customer.setEmail(rs.getString("email"));
-                customer.setJt(rs.getString("jt"));
-                customer.setDisc(rs.getString("disc"));
-                customer.setAWAL(rs.getString("AWAL"));
-                customer.setPiutang(rs.getString("Piutang"));
-                customer.setBayar(rs.getString("Bayar"));
-                customer.setAkhir(rs.getString("Akhir"));
-                customer.setTgl(rs.getString("tgl"));
-                customer.setUserid(rs.getString("userid"));
-                customer.setPwd(rs.getString("pwd"));
+                pegawai.setId(rs.getString("id"));
+                pegawai.setNip(rs.getString("kode"));
+                pegawai.setNama(rs.getString("nama"));
+                pegawai.setTempat(rs.getString("jenisid"));
+                pegawai.setLahir(rs.getString("lahir"));
+                pegawai.setSex(rs.getString("sex"));
+                pegawai.setAgama(rs.getString("agama"));
+                pegawai.setHp(rs.getString("hp"));
+                pegawai.setJabatan(rs.getString("jabatan"));
+                pegawai.setAlamat(rs.getString("alamat"));
+                pegawai.setKota(rs.getString("kota"));
+                pegawai.setAktif(rs.getString("aktif"));
+                pegawai.setStatus(rs.getString("status"));
+                pegawai.setEmail(rs.getString("email"));
             } // end while
         } // end try
         
@@ -256,82 +206,67 @@ public class Pegawai extends Data {
             while (rs.next()) {
                 tb.addRow(new Object[]{
                     rs.getString("id"),
-                    rs.getString("kode"),
+                    rs.getString("nip"),
                     rs.getString("nama"),
-                    rs.getString("jenisid"),
-                    rs.getString("cp"),
+                    rs.getString("tempat"),
+                    rs.getString("lahir"),
+                    rs.getString("sex"),
+                    rs.getString("agama"),
+                    rs.getString("hp"),
+                    rs.getString("jabatan"),
                     rs.getString("alamat"),
-                    rs.getString("telp"),
-                    rs.getString("fax"),
                     rs.getString("kota"),
+                    rs.getString("aktif"),
+                    rs.getString("status"),
                     rs.getString("email"),
-                    rs.getString("jt"),
-                    rs.getString("disc"),
-                    rs.getString("AWAL"),
-                    rs.getString("Piutang"),
-                    rs.getString("Bayar"),
-                    rs.getString("Akhir"),
-                    rs.getString("tgl"),
-                    rs.getString("userid"),
-                    rs.getString("pwd")
                 });
             } // end while
         } // end try
     } // end bacaData
  
-    public static void addData(Pegawai customer) throws SQLException {
+    public static void addData(Pegawai pegawai) throws SQLException {
         Connection db = ConnectionDB.getConnection();
-        String sql = "INSERT INTO r_customer (id, kode, nama, jenisid, cp, alamat, telp, fax, kota, email, jt, disc, AWAL, Piutang, Bayar, Akhir, tgl, userid, pwd)"
-                   + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO r_pegawai (id, nip, nama, tempat, lahir, sex, agama, hp, jabatan, alamat, kota, aktif	, status, email)"
+                   + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         try (PreparedStatement q = db.prepareStatement(sql)) {
-            q.setString(1, customer.getId());
-            q.setString(2, customer.getKode());
-            q.setString(3, customer.getNama());
-            q.setString(4, customer.getJenisid());
-            q.setString(5, customer.getCp());
-            q.setString(6, customer.getAlamat());
-            q.setString(7, customer.getTelp());
-            q.setString(8, customer.getFax());
-            q.setString(9, customer.getKota());
-            q.setString(10, customer.getEmail());
-            q.setString(11, customer.getJt());
-            q.setString(12, customer.getDisc());
-            q.setString(13, customer.getAWAL());
-            q.setString(14, customer.getPiutang());
-            q.setString(15, customer.getBayar());
-            q.setString(16, customer.getAkhir());
-            q.setString(17, customer.getTgl());
-            q.setString(18, customer.getUserid());
-            q.setString(19, customer.getPwd());
+            q.setString(1, pegawai.getId());
+            q.setString(2, pegawai.getNip());
+            q.setString(3, pegawai.getNama());
+            q.setString(4, pegawai.getTempat());
+            q.setString(5, pegawai.getLahir());
+            q.setString(6, pegawai.getSex());
+            q.setString(7, pegawai.getAgama());
+            q.setString(8, pegawai.getHp());
+            q.setString(9, pegawai.getJabatan());
+            q.setString(10, pegawai.getAlamat());
+            q.setString(11, pegawai.getKota());
+            q.setString(12, pegawai.getAktif());
+            q.setString(13, pegawai.getStatus());
+            q.setString(14, pegawai.getEmail());
             q.executeUpdate();
         }
      }
  
-    public void Edit(Pegawai customer) throws SQLException {
+    public void Edit(Pegawai pegawai) throws SQLException {
         Connection db = ConnectionDB.getConnection();
         String sql = "UPDATE r_customer SET kode = ?, nama = ?, jenisid = ?, cp = ?, alamat = ?, telp = ?, fax = ?, kota = ?, email = ?, jt = ?, disc = ?, AWAL = ?, Piutang = ?, Bayar = ?, Akhir = ?, tgl = ?, userid = ?, pwd = ? WHERE id = ?";
 
         try (PreparedStatement q = db.prepareStatement(sql)) {
-            q.setString(1, customer.getId());
-            q.setString(2, customer.getKode());
-            q.setString(3, customer.getNama());
-            q.setString(4, customer.getJenisid());
-            q.setString(5, customer.getCp());
-            q.setString(6, customer.getAlamat());
-            q.setString(7, customer.getTelp());
-            q.setString(8, customer.getFax());
-            q.setString(9, customer.getKota());
-            q.setString(10, customer.getEmail());
-            q.setString(11, customer.getJt());
-            q.setString(12, customer.getDisc());
-            q.setString(13, customer.getAWAL());
-            q.setString(14, customer.getPiutang());
-            q.setString(15, customer.getBayar());
-            q.setString(16, customer.getAkhir());
-            q.setString(17, customer.getTgl());
-            q.setString(18, customer.getUserid());
-            q.setString(19, customer.getPwd());
+            q.setString(1, pegawai.getId());
+            q.setString(2, pegawai.getNip());
+            q.setString(3, pegawai.getNama());
+            q.setString(4, pegawai.getTempat());
+            q.setString(5, pegawai.getLahir());
+            q.setString(6, pegawai.getSex());
+            q.setString(7, pegawai.getAgama());
+            q.setString(8, pegawai.getHp());
+            q.setString(9, pegawai.getJabatan());
+            q.setString(10, pegawai.getAlamat());
+            q.setString(11, pegawai.getKota());
+            q.setString(12, pegawai.getAktif());
+            q.setString(13, pegawai.getStatus());
+            q.setString(14, pegawai.getEmail());
             q.executeUpdate();
         }
     }
@@ -339,7 +274,7 @@ public class Pegawai extends Data {
     public static boolean Del(String id) throws SQLException {
         Connection db = ConnectionDB.getConnection();
         boolean tf;
-        String sql = "DELETE FROM r_customer WHERE id = '" + id + "' ";
+        String sql = "DELETE FROM r_pegawai WHERE id = '" + id + "' ";
         try (PreparedStatement q = db.prepareStatement(sql)) {
             int efek = q.executeUpdate();
             if (efek > 0) {

@@ -20,7 +20,7 @@ public class PegawaiEdit extends javax.swing.JFrame {
         initComponents();
         
         String id = Global.id;
-        Pegawai customer = new Pegawai(id, "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "");
+        Pegawai pegawai = new Pegawai(id, "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "");
         
         try {
             Pegawai.viewData(customer, id);
@@ -113,15 +113,15 @@ public class PegawaiEdit extends javax.swing.JFrame {
             }
         });
 
-        jLabel3.setText("Kode");
+        jLabel3.setText("Nip");
 
         jLabel4.setText("Nama");
 
-        jLabel5.setText("Jenis ID");
+        jLabel5.setText("Tempat");
 
-        jLabel6.setText("CP");
+        jLabel6.setText("Lahir");
 
-        jLabel7.setText("Alamat");
+        jLabel7.setText("Sex");
 
         jLabel8.setText("Telepon");
 

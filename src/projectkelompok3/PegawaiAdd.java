@@ -11,30 +11,26 @@ public class PegawaiAdd extends javax.swing.JFrame {
     public PegawaiAdd() {
         initComponents();
         String id = Global.id;
-        Pegawai customer = new Pegawai(id, "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "");
+        Pegawai pegawai = new Pegawai(id, "", "", "", "", "", "", "", "", "", "", "", "", "");
         try {
-            Pegawai.viewData(customer, id);
+            Pegawai.viewData(pegawai, id);
         } catch (Exception e) {
             System.out.println(e.toString());
         }
-        txtId.setText(customer.getId());
-        txtNama.setText(customer.getNama());
-        txtJenisId.setText(customer.getJenisid());
-        txtCp.setText(customer.getCp());
-        txtKota.setText(customer.getAlamat());
-        txtEmail.setText(customer.getTelp());
-        txtFax.setText(customer.getFax());
-        txtDisc.setText(customer.getKota());
-        txtEmail.setText(customer.getEmail());
-        txtJt.setText(customer.getJt());
-        txtDisc.setText(customer.getDisc());
-        txtAWAL.setText(customer.getAWAL());
-        txtPiutang.setText(customer.getPiutang());
-        txtBayar.setText(customer.getBayar());
-        txtAkhir.setText(customer.getAkhir());
-        txtKode.setText(customer.getTgl());
-        txtUserId.setText(customer.getUserid());
-        txtPwd.setText(customer.getPwd());
+        txtId.setText(pegawai.getId());
+        txtNip.setText(pegawai.getNip());
+        txtNama.setText(pegawai.getNama());
+        txtTempat.setText(pegawai.getTempat());
+        txtLahir.setText(pegawai.getLahir());
+        txtSex.setText(pegawai.getSex());
+        txtAgama.setText(pegawai.getAgama());
+        txtHp.setText(pegawai.getHp());
+        txtJabatan.setText(pegawai.getJabatan());
+        txtAlamat.setText(pegawai.getAlamat());
+        txtKota.setText(pegawai.getKota());
+        txtAktif.setText(pegawai.getAktif());
+        txtStatus.setText(pegawai.getStatus());
+        txtEmail.setText(pegawai.getEmail());
     }
 
     /**
@@ -333,29 +329,24 @@ public class PegawaiAdd extends javax.swing.JFrame {
 
     private void btnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimpanActionPerformed
         String id = txtId.getText();
-        String kode = txtKode.getText();
+        String nip = txtNip.getText();
         String nama = txtNama.getText();
-        String jenisid = txtJenisId.getText();
-        String cp = txtCp.getText();
+        String tempat = txtTempat.getText();
+        String lahir = txtLahir.getText();
+        String sex = txtSex.getText();
+        String agama = txtAgama.getText();
+        String hp = txtHp.getText();
+        String jabatan = txtJabatan.getText();
         String alamat = txtAlamat.getText();
-        String telp = txtEmail.getText();
-        String fax = txtFax.getText();
-        String kota = txtDisc.getText();
+        String kota = txtKota.getText();
+        String aktif = txtAktif.getText();
+        String status = txtStatus.getText();
         String email = txtEmail.getText();
-        String jt = txtJt.getText();
-        String disc = txtDisc.getText();
-        String AWAL = txtAWAL.getText();
-        String piutang = txtPiutang.getText();
-        String bayar = txtBayar.getText();
-        String akhir = txtAkhir.getText();
-        String tgl = txtTanggal.getText();
-        String userid = txtUserId.getText();
-        String pwd = txtPwd.getText();
         
-        Pegawai customer = new Pegawai(id, kode, nama, jenisid, cp, alamat, telp, fax, kota, email, jt, disc, AWAL, piutang, bayar, akhir, tgl, userid, pwd);
+        Pegawai pegawai = new Pegawai(id, nip, nama, tempat, lahir, sex, agama, hp, jabatan, alamat, kota, aktif, status, email);
 
         try {
-            Pegawai.addData(customer);
+            Pegawai.addData(pegawai);
             JOptionPane.showMessageDialog(null, "Data berhasil disimpan");
             new PegawaiAdd().setVisible(true);
             this.dispose();
@@ -365,7 +356,7 @@ public class PegawaiAdd extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSimpanActionPerformed
 
     private void btnBatalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBatalActionPerformed
-        new CustomerView().setVisible(true);
+        new PegawaiView().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnBatalActionPerformed
 
