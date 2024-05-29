@@ -298,11 +298,11 @@ public class PegawaiAdd extends javax.swing.JFrame {
         String agama = txtAgama.getText();
         String hp = txtHp.getText();
         String jabatan = txtJabatan.getText();
-        String alamat = txtSex.getText();
-        String kota = txtJabatan.getText();
+        String alamat = txtAlamat.getText();
+        String kota = txtKota.getText();
         String aktif = txtAktif.getText();
         String status = txtStatus.getText();
-        String email = txtAlamat.getText();
+        String email = txtEmail.getText();
         
         Pegawai pegawai = new Pegawai(id, nip, nama, tempat, lahir, sex, agama, hp, jabatan, alamat, kota, aktif, status, email);
 
