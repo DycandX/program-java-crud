@@ -5,10 +5,15 @@ import com.stripbandunk.jwidget.model.DefaultPaginationModel;
 import java.sql.*;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableModel;
+import javax.swing.JTable;
+
 
 public class PegawaiView extends javax.swing.JFrame {
     int baris, kol;
+    String order;
+    String ascdes;
     private DefaultPaginationModel paginationModel;
     private DefaultTableModel tb= new DefaultTableModel();
     
@@ -19,7 +24,7 @@ public class PegawaiView extends javax.swing.JFrame {
         tb.addColumn("Nama");
         tb.addColumn("Tempat");
         tb.addColumn("Lahir");
-        tb.addColumn("Alamat");
+        tb.addColumn("Sex");
         tb.addColumn("Agama");
         tb.addColumn("HP");
         tb.addColumn("Jabatan");
@@ -29,42 +34,87 @@ public class PegawaiView extends javax.swing.JFrame {
         tb.addColumn("Status");
         tb.addColumn("Email");
         tbData.setModel(tb); 
+        ascdes=" ASC";
         
+        cbkol.removeAllItems();
+        cbkol.addItem("ID");
+        cbkol.addItem("NIP");
+        cbkol.addItem("Nama");
+        cbkol.addItem("Tempat");
+        cbkol.addItem("Lahir");
+        cbkol.addItem("Sex");
+        cbkol.addItem("Agama");
+        cbkol.addItem("Hp");
+        cbkol.addItem("alamat");
+        cbkol.addItem("Jabatan");
+        cbkol.addItem("Kota");
+        cbkol.addItem("Aktif");
+        cbkol.addItem("Status");
+        cbkol.addItem("Email");
+        
+        
+        inputPage.removeAllItems();
+        inputPage.addItem("10");
+        inputPage.addItem("20");
+        inputPage.addItem("50");
+        inputPage.addItem("70");
+        inputPage.addItem("100");
+        
+        tbData.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        
+        TableColumnModel columnModel = tbData.getColumnModel();
+        columnModel.getColumn(0).setPreferredWidth(30); // ID
+        columnModel.getColumn(1).setPreferredWidth(70); // NIP
+        columnModel.getColumn(2).setPreferredWidth(140); // NAMA
+        columnModel.getColumn(3).setPreferredWidth(90); // TEMPAT
+        columnModel.getColumn(4).setPreferredWidth(120); // LAHIR
+        columnModel.getColumn(5).setPreferredWidth(40); // SEX
+        columnModel.getColumn(6).setPreferredWidth(90); // AGAMA
+        columnModel.getColumn(7).setPreferredWidth(110); // HP
+        columnModel.getColumn(8).setPreferredWidth(130); // JABATAN
+        columnModel.getColumn(9).setPreferredWidth(150); // ALAMAT
+        columnModel.getColumn(10).setPreferredWidth(110); // KOTA
+        columnModel.getColumn(11).setPreferredWidth(50); // AKTIF
+        columnModel.getColumn(12).setPreferredWidth(70); // STATUS
+        columnModel.getColumn(13).setPreferredWidth(180); // EMAIL
+
         try {
             IsiTabel();           
-        } catch (Exception e) {
+        } catch (SQLException ex) {
             System.out.println("gagal");
         }
     }
     
+    
+    // Method to Fill Table Data
     private void IsiTabel() throws SQLException {
+        String tampil = (String)inputPage.getSelectedItem();
+        String f = (String)cbkol.getSelectedItem();
+        order = " ORDER BY " + f + ascdes;
         Global.sql = "SELECT * FROM r_pegawai WHERE id <> ''";
         kosongTabel();
         String cari = inputSearch.getText();
         String sql = Global.sql;
         if (!cari.isEmpty()) {
-            sql = sql + " AND (id like '%" + cari + "%' ";
-            sql = sql + " OR nama like '%" + cari + "%' ";
-            sql = sql + " OR kota like '%" + cari + "%' ";
-            sql = sql + " OR telp like '%" + cari + "%' ";
-            sql = sql + " OR alamat like '%" + cari + "%') ";
+            // Hanya mencari di kolom yang dipilih dan dengan nilai yang sama persis
+            sql = sql + " AND " + f + " = '" + cari + "'";
         }
-        
-        Global.sql = sql;
+
+        Global.sql = sql + order;
         System.out.println(sql);
         paginationModel = new DefaultPaginationModel();
         paginationModel.setTotalItem(Global.JmlRec(Global.sql));
-        
-        // Mengeset jumlah record untuk satu halaman
-        int n = Integer.parseInt(inputPage.getText());
+
+        // Retrieve selected value from JComboBox
+        int n = Integer.parseInt((String) inputPage.getSelectedItem());
         paginationModel.setPageSize(n);
         Halaman.setModel(paginationModel);
-        
-        // Memberi nama pada setiap kolom tabel
-        //tbData.setEnabled(false);
-        Pegawai.bacaData(tb,Global.sql + " LIMIT " + n);
+
+        Pegawai.bacaData(tb, Global.sql + " LIMIT " + n);
     }
-    
+
+
+
     private void kosongTabel() {
         baris = tb.getRowCount();
         for (int i = 0; i < baris; i++) {
@@ -102,6 +152,19 @@ public class PegawaiView extends javax.swing.JFrame {
         }
     }
     
+    private void btnascActionPerformed(java.awt.event.ActionEvent evt) { 
+        // Mengubah variabel ascdes menjadi ASC
+        ascdes = "ASC";
+        try { 
+            // Memanggil method IsiTabel untuk mengisi tabel dengan urutan ascending
+            IsiTabel();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Error: " + ex.getMessage());
+        }
+    }
+
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -113,7 +176,6 @@ public class PegawaiView extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         tbData = new javax.swing.JTable();
-        inputPage = new javax.swing.JTextField();
         btnSearch = new javax.swing.JButton();
         btnAdd = new javax.swing.JButton();
         btnEdit = new javax.swing.JButton();
@@ -122,6 +184,11 @@ public class PegawaiView extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         inputSearch = new javax.swing.JTextField();
         btnLimitView = new javax.swing.JButton();
+        cbkol = new javax.swing.JComboBox<>();
+        btnasc = new javax.swing.JButton();
+        btndesc = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        inputPage = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -144,8 +211,6 @@ public class PegawaiView extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(tbData);
-
-        inputPage.setText("15");
 
         btnSearch.setText("Cari");
         btnSearch.addActionListener(new java.awt.event.ActionListener() {
@@ -190,6 +255,22 @@ public class PegawaiView extends javax.swing.JFrame {
             }
         });
 
+        cbkol.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        btnasc.setText("Asc");
+
+        btndesc.setText("Desc");
+        btndesc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btndescActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel1.setText("Aplikasi Implementasi OOP");
+
+        inputPage.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -197,56 +278,75 @@ public class PegawaiView extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnAdd)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnEdit)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnDelete)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(inputSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(59, 59, 59))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 717, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addGap(370, 370, 370))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(Halaman, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(407, 407, 407))))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(inputPage, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnLimitView, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 765, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(294, 294, 294)
-                                .addComponent(Halaman, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(42, Short.MAX_VALUE))))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(btnDelete))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel2)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(inputPage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(12, 12, 12)
+                                        .addComponent(btnLimitView, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addComponent(inputSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(cbkol, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(12, 12, 12)
+                                        .addComponent(btnasc, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(6, 6, 6)
+                                        .addComponent(btndesc, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(inputPage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnLimitView)
-                    .addComponent(jLabel2))
-                .addGap(18, 18, 18)
+                .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(inputSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnSearch))
-                        .addGap(57, 57, 57))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnAdd)
-                            .addComponent(btnEdit)
-                            .addComponent(btnDelete))
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
-                        .addComponent(Halaman, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel2)
+                        .addComponent(btnLimitView)
+                        .addComponent(inputPage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(cbkol, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnasc)
+                        .addComponent(btndesc)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnAdd)
+                        .addComponent(btnEdit)
+                        .addComponent(btnDelete))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnSearch)
+                        .addComponent(inputSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 325, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(Halaman, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(17, Short.MAX_VALUE))
         );
 
         pack();
@@ -266,7 +366,8 @@ public class PegawaiView extends javax.swing.JFrame {
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
         try {
             IsiTabel();
-        } catch (Exception e) {
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Error: " + ex.getMessage());
         }
     }//GEN-LAST:event_btnSearchActionPerformed
 
@@ -297,6 +398,16 @@ public class PegawaiView extends javax.swing.JFrame {
     private void HalamanOnPageChange(com.stripbandunk.jwidget.event.PaginationEvent evt) {//GEN-FIRST:event_HalamanOnPageChange
         halamanOnPageChange(evt);
     }//GEN-LAST:event_HalamanOnPageChange
+
+    private void btndescActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btndescActionPerformed
+        // TODO add your handling code here:
+        ascdes = " DESC";
+        try {
+            IsiTabel();
+        } catch (SQLException ex) {
+            System.out.println("Error: " + ex.getMessage());
+        }
+    }//GEN-LAST:event_btndescActionPerformed
 
     /**
      * @param args the command line arguments
@@ -347,8 +458,12 @@ public class PegawaiView extends javax.swing.JFrame {
     private javax.swing.JButton btnEdit;
     private javax.swing.JButton btnLimitView;
     private javax.swing.JButton btnSearch;
-    private javax.swing.JTextField inputPage;
+    private javax.swing.JButton btnasc;
+    private javax.swing.JButton btndesc;
+    private javax.swing.JComboBox<String> cbkol;
+    private javax.swing.JComboBox<String> inputPage;
     private javax.swing.JTextField inputSearch;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tbData;

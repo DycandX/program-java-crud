@@ -4,12 +4,17 @@ import java.sql.*;
 import javax.swing.JOptionPane;
 
 public class PegawaiAdd extends javax.swing.JFrame {
+    
+    String url = "jdbc:mysql://localhost:3306/pbo-crud-kel3"; // Ganti "nama_database" dengan nama database yang Anda gunakan
+    String user = "root"; // Ganti "username" dengan username MySQL Anda
+    String pass = ""; // Ganti "password" dengan password MySQL Anda
 
     /**
      * Creates new form PmbAdd
      */
     public PegawaiAdd() {
         initComponents();
+        setNextId();
         String id = Global.id;
         Pegawai pegawai = new Pegawai(id, "", "", "", "", "", "", "", "", "", "", "", "", "");
         try {
@@ -17,7 +22,6 @@ public class PegawaiAdd extends javax.swing.JFrame {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        txtId.setText(pegawai.getId());
         txtNip.setText(pegawai.getNip());
         txtNama.setText(pegawai.getNama());
         txtTempat.setText(pegawai.getTempat());
@@ -31,7 +35,48 @@ public class PegawaiAdd extends javax.swing.JFrame {
         txtAktif.setText(pegawai.getAktif());
         txtStatus.setText(pegawai.getStatus());
         txtEmail.setText(pegawai.getEmail());
+        
+        txtId.setEditable(false);
     }
+    
+    private void setNextId() {
+        int nextId = getNextIdFromDatabase();
+        txtId.setText(String.format("%03d", nextId)); // Format menjadi 021
+    }
+    
+    private int getNextIdFromDatabase() {
+        int nextId = 1; // Default value
+        Connection conn = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+
+        try {
+            // Open a connection
+            conn = DriverManager.getConnection(url, user, pass);
+            stmt = conn.createStatement();
+
+            // Execute a query
+            String sql = "SELECT MAX(CAST(id AS UNSIGNED)) AS max_id FROM r_pegawai";
+            rs = stmt.executeQuery(sql);
+
+            // Extract data from result set
+            if (rs.next()) {
+                nextId = rs.getInt("max_id") + 1;
+            }
+        } catch (SQLException se) {
+            se.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (stmt != null) stmt.close();
+                if (conn != null) conn.close();
+            } catch (SQLException se) {
+                se.printStackTrace();
+            }
+        }
+        return nextId;
+    }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -289,31 +334,32 @@ public class PegawaiAdd extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimpanActionPerformed
-        String id = txtId.getText();
-        String nip = txtNip.getText();
-        String nama = txtNama.getText();
-        String tempat = txtTempat.getText();
-        String lahir = txtLahir.getText();
-        String sex = txtSex.getText();
-        String agama = txtAgama.getText();
-        String hp = txtHp.getText();
-        String jabatan = txtJabatan.getText();
-        String alamat = txtAlamat.getText();
-        String kota = txtKota.getText();
-        String aktif = txtAktif.getText();
-        String status = txtStatus.getText();
-        String email = txtEmail.getText();
-        
-        Pegawai pegawai = new Pegawai(id, nip, nama, tempat, lahir, sex, agama, hp, jabatan, alamat, kota, aktif, status, email);
+    // String id = txtId.getText(); // Tidak perlu ambil ID dari txtId
+    String nip = txtNip.getText();
+    String nama = txtNama.getText();
+    String tempat = txtTempat.getText();
+    String lahir = txtLahir.getText();
+    String sex = txtSex.getText();
+    String agama = txtAgama.getText();
+    String hp = txtHp.getText();
+    String jabatan = txtJabatan.getText();
+    String alamat = txtAlamat.getText();
+    String kota = txtKota.getText();
+    String aktif = txtAktif.getText();
+    String status = txtStatus.getText();
+    String email = txtEmail.getText();
+    
+    // Perhatikan ID tidak diperlukan saat membuat objek Pegawai
+    Pegawai pegawai = new Pegawai(null, nip, nama, tempat, lahir, sex, agama, hp, jabatan, alamat, kota, aktif, status, email);
 
-        try {
-            Pegawai.addData(pegawai);
-            JOptionPane.showMessageDialog(null, "Data berhasil disimpan");
-            new PegawaiAdd().setVisible(true);
-            this.dispose();
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e.toString());
-        }
+    try {
+        Pegawai.addData(pegawai); // Pastikan method addData tidak mengharapkan ID
+        JOptionPane.showMessageDialog(null, "Data berhasil disimpan");
+        new PegawaiAdd().setVisible(true);
+        this.dispose();
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(null, e.toString());
+    }
     }//GEN-LAST:event_btnSimpanActionPerformed
 
     private void btnBatalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBatalActionPerformed
