@@ -14,7 +14,7 @@ public class ConnectionDB {
             DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
             String url="jdbc:mysql://localhost:3306/pbo-crud-kel3"; // url database
             String user="root"; // user database
-            String pass=""; // password database
+            String pass="root"; // password database
             koneksi=DriverManager.getConnection(url, user, pass); 
             System.out.println("Berhasil Koneksi");
         } catch (Exception e) {

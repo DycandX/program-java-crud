@@ -152,16 +152,6 @@ public class PegawaiView extends javax.swing.JFrame {
         }
     }
     
-    private void btnascActionPerformed(java.awt.event.ActionEvent evt) { 
-        // Mengubah variabel ascdes menjadi ASC
-        ascdes = "ASC";
-        try { 
-            // Memanggil method IsiTabel untuk mengisi tabel dengan urutan ascending
-            IsiTabel();
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(this, "Error: " + ex.getMessage());
-        }
-    }
 
     
     
@@ -258,6 +248,11 @@ public class PegawaiView extends javax.swing.JFrame {
         cbkol.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         btnasc.setText("Asc");
+        btnasc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnascActionPerformed(evt);
+            }
+        });
 
         btndesc.setText("Desc");
         btndesc.addActionListener(new java.awt.event.ActionListener() {
@@ -408,6 +403,17 @@ public class PegawaiView extends javax.swing.JFrame {
             System.out.println("Error: " + ex.getMessage());
         }
     }//GEN-LAST:event_btndescActionPerformed
+
+    private void btnascActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnascActionPerformed
+
+        ascdes = "ASC";
+        try { 
+            // Memanggil method IsiTabel untuk mengisi tabel dengan urutan ascending
+            IsiTabel();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Error: " + ex.getMessage());
+        }
+    }//GEN-LAST:event_btnascActionPerformed
 
     /**
      * @param args the command line arguments

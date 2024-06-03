@@ -7,7 +7,7 @@ public class PegawaiAdd extends javax.swing.JFrame {
     
     String url = "jdbc:mysql://localhost:3306/pbo-crud-kel3"; // Ganti "nama_database" dengan nama database yang Anda gunakan
     String user = "root"; // Ganti "username" dengan username MySQL Anda
-    String pass = ""; // Ganti "password" dengan password MySQL Anda
+    String pass = "root"; // Ganti "password" dengan password MySQL Anda
 
     /**
      * Creates new form PmbAdd
