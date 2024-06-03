@@ -246,6 +246,11 @@ public class PegawaiView extends javax.swing.JFrame {
         });
 
         cbkol.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbkol.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbkolActionPerformed(evt);
+            }
+        });
 
         btnasc.setText("Asc");
         btnasc.addActionListener(new java.awt.event.ActionListener() {
@@ -404,6 +409,7 @@ public class PegawaiView extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btndescActionPerformed
 
+<<<<<<< HEAD
     private void btnascActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnascActionPerformed
 
         ascdes = "ASC";
@@ -413,6 +419,19 @@ public class PegawaiView extends javax.swing.JFrame {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, "Error: " + ex.getMessage());
         }
+=======
+    private void cbkolActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbkolActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbkolActionPerformed
+
+    private void btnascActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnascActionPerformed
+        ascdes = " ASC";
+        try {
+            IsiTabel();
+        } catch (SQLException ex) {
+            System.out.println("Error: " + ex.getMessage());
+        }                
+>>>>>>> 8e9e2691b8ccfad297904df59973a4d7ca1467a5
     }//GEN-LAST:event_btnascActionPerformed
 
     /**
