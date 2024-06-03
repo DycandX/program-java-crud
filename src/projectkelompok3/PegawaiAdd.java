@@ -33,15 +33,14 @@ public class PegawaiAdd extends javax.swing.JFrame {
         txtAlamat.setText(pegawai.getAlamat());
         txtKota.setText(pegawai.getKota());
         txtAktif.setText(pegawai.getAktif());
-        txtStatus.setText(pegawai.getStatus());
+        txtStatus.setText(pegawai.getStatus()); 
         txtEmail.setText(pegawai.getEmail());
-        
         txtId.setEditable(false);
     }
     
     private void setNextId() {
         int nextId = getNextIdFromDatabase();
-        txtId.setText(String.format("%03d", nextId)); // Format menjadi 021
+        txtId.setText(String.format("%d", nextId));
     }
     
     private int getNextIdFromDatabase() {

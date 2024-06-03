@@ -409,17 +409,6 @@ public class PegawaiView extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btndescActionPerformed
 
-<<<<<<< HEAD
-    private void btnascActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnascActionPerformed
-
-        ascdes = "ASC";
-        try { 
-            // Memanggil method IsiTabel untuk mengisi tabel dengan urutan ascending
-            IsiTabel();
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(this, "Error: " + ex.getMessage());
-        }
-=======
     private void cbkolActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbkolActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cbkolActionPerformed
@@ -431,7 +420,7 @@ public class PegawaiView extends javax.swing.JFrame {
         } catch (SQLException ex) {
             System.out.println("Error: " + ex.getMessage());
         }                
->>>>>>> 8e9e2691b8ccfad297904df59973a4d7ca1467a5
+
     }//GEN-LAST:event_btnascActionPerformed
 
     /**
